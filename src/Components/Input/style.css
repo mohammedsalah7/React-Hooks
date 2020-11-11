@@ -1,0 +1,35 @@
+.contanier-input {
+    display: flex;
+    flex-direction: column;
+     
+  }
+
+  .input{
+    width: 426px;
+    height: 40px;
+    left: 793px;
+    top: 360px;
+    border: 1px solid #8692a6;
+    box-sizing: border-box;
+    border-radius: 6px;
+    padding-left: 30px;
+    outline: none;
+  }
+  .title-label {
+    width: 419px;
+    font-family: "Inter";
+    font-size: 16px;
+    line-height: 40px;
+    align-items: center;
+    color: #2d2e2e;
+    font-style: normal;
+  font-weight: 500;
+  font-size: 16px;
+  
+  }
+  .error{
+    border-color: red;
+  } 
+  .lable-error{
+    color: red;
+  }

@@ -1,0 +1,47 @@
+.back {
+    display: flex;
+    margin-top: 60px;
+    margin-left: 30px;
+    flex-wrap: wrap;
+    /* background-color: red;
+    width: 10px;
+    height: 12px; */
+   
+  
+  }
+  .word-back {
+    position: relative;
+    top: -18px;
+    left: 5px;
+    font-family: "Inter";
+    font-style: normal;
+    font-weight: 600;
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 19px;
+    align-items: center;
+    margin-left: 3px;
+    color: #8692A6;
+    cursor: pointer;   
+  }
+
+  .icon{
+    position: relative;
+  
+    font-size: 10px;
+    margin-top: 5px;
+    cursor: pointer;
+    color: #8692A6;
+    right: 3px;
+  }
+  .link-back{
+    text-decoration: none;
+    position: relative;
+    border: none;
+    width: 12px;
+    background-color: white;
+
+    height: 12px
+
+    
+  }

@@ -1,0 +1,86 @@
+
+  .shap {
+    margin-left: 500px;
+    position: relative;
+    top: 170px;
+  }
+ 
+  .qoute{
+    position: absolute;
+    width: 180px;
+    height: 21px;
+    left: 0px;
+    top: 211px;
+    font-family: Gayathri;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 96px;
+    line-height: 117px;
+    color: #BABABA;
+  }
+  .Pargraph{
+    position: relative;
+    width: 473px;
+    height: 164px;
+    left: 72px;
+    top: 120px;
+    font-family: Inter;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 20px;
+    line-height: 30px;
+    display: flex;
+    align-items: center;
+    color: #FFFFFF;
+  }
+  .Author{
+  position: relative;
+  width: 124px;
+  height: 38px;
+  left: -400px;
+  top: 260px;
+  font-family: Inter;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 15px;
+  line-height: 30px;
+  display: flex;
+  align-items: center;
+  color: #FFFFFF;
+  }
+  
+  .qoute-login{
+    position: relative;
+    top:170px;
+    left: 72px;
+  }
+  .pargraph-login{
+    position: relative;
+    width: 473px;
+    height: 164px;
+    left: 72px;
+    top: 170px;
+    font-family: Inter;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 23px;
+    line-height: 30px;
+    display: flex;
+    align-items: center;
+    color: #696F79;
+  }
+  .Author-login{
+  position: relative;
+  width: 124px;
+  height: 38px;
+  left: 72px;
+  top: 150px;
+  font-family: Inter;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 15px;
+  line-height: 30px;
+  display: flex;
+  align-items: center;
+  color: #696F79;
+  }

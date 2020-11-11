@@ -1,0 +1,18 @@
+.container{
+    display: flex;
+    flex-wrap: wrap;
+    position: absolute;
+    left: 79px;
+    top:51px;
+}
+.title-logo-signup{
+    position: absolute;
+    left: 120px;
+    top:15px;
+    color:white;
+    font-size: 20px;
+    line-height: 16px;
+    font-family: Raanana;
+    font-style: normal;
+    font-weight: normal;
+}

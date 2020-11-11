@@ -1,0 +1,45 @@
+.container{
+    display: flex;
+    justify-content: space-around;
+    width: 200px;
+    position: relative;
+    left: -15px;
+    margin-bottom: 50px;
+   
+} 
+.Google{
+    position: relative;
+    width: 35px;
+    height: 35px;
+    background: #FFFFFF;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.08);
+    border-radius: 6px;
+    
+}
+.Twitter{
+    position: relative;
+    width: 35px;
+    height: 35px;
+    background: #FFFFFF;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.08);
+    border-radius: 6px;
+    
+}
+.Linkend{
+    position: relative;
+    width: 35px;
+    height: 35px;
+    background: #FFFFFF;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.08);
+    border-radius: 6px;
+    
+}
+.Git{
+    position: relative;
+    width: 35px;
+    height: 35px;
+    background: #FFFFFF;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.08);
+    border-radius: 6px;
+    
+}
