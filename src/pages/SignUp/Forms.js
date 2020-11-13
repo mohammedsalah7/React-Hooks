@@ -1,84 +1,103 @@
-import React, { Component } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import Input from "../../Components/Input";
+import { LoginsContext } from "../../App";
 import Checkbox from "../../Components/Checkbox";
 import { RegisterBtn, LogInBtn, OR } from "../../Components/Button";
-import { Link } from "react-router-dom";
-import contactUsSchema, { fieldSchema } from "./signup_validate";
+import { Link, useHistory } from "react-router-dom";
 import axios from "axios";
-// import * as yup from "yup"
+import * as yup from "yup";
 import "./style.css";
-class Forms extends Component {
-  state = {
-    email: "",
-    password: "",
-    rePassword: "",
-    checked: false,
-    errors: {},
-    error: "",
-  };
-  handleChange = (e) => {
-    const { value, name, checked } = e.target;
-    let _value = value;
-    if (name === "checked") {
-      _value = checked;
-    }
+const initState = {
+  email: "",
+  userName: "",
+  password: "",
+  rePassword: "",
+  checked: "",
+  error: "",
+};
+const schema = yup.object().shape({
+  email: yup.string().email().required(),
+  userName: yup.string().required(),
+  password: yup.string().required().min(9),
+  rePassword: yup
+    .string()
+    .oneOf([yup.ref("password"), null], "Passwords must match")
+    .required(),
+  checked: yup.string().required(),
+});
 
-    const validate = () => {
-      const { password } = this.state;
-      fieldSchema(name, password)
-        .validate(_value)
-        .then((data) => {
-          // console.log(data);
-          console.log("valid");
-          this.setState((prevState) => {
-            const { errors } = prevState;
-            return { errors: { ...errors, [name]: "" } };
-          });
+function Forms() {
+  const { dispatch } = useContext(LoginsContext);
+  const history = useHistory();
+  const [state, setState] = useState(initState);
+  const [errors, setErrors] = useState(initState);
+  const [isSubmitted, setIsSubmitted] = useState(false);
+  const { email, userName, password, rePassword, error, checked } = state;
+
+  useEffect(() => {
+    let mount = true;
+    if (isSubmitted) {
+      console.log("object");
+      schema
+        .validate(state, { abortEarly: false })
+        .then(() => {
+          if (mount) {
+            setErrors({
+              email: "",
+              userName: "",
+              password: "",
+              rePassword: "",
+              checked: "",
+            });
+          }
         })
         .catch((err) => {
-          console.log("in valid");
-          this.setState((prevState) => {
-            const { errors } = prevState;
-            return { errors: { ...errors, [name]: err.message } };
+          const newErrors = {};
+          err.inner.forEach(({ path, message }) => {
+            newErrors[path] = message;
           });
+
+          if (mount) {
+            setErrors({ ...initState, ...newErrors });
+          }
         });
+    }
+    return () => {
+      mount = false;
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isSubmitted, email, userName, password, rePassword, checked]);
 
-    this.setState({ [name]: _value }, validate);
+  const handleChange = (e) => {
+    const { id, value, checked } = e.target;
+    let _value = value;
+    if (id === "checked") {
+      _value = checked;
+    }
+    setState({ ...state, [id]: _value });
   };
 
-  validateFrom = (data) => {
-    contactUsSchema
-      .validate(data, { abortEarly: false })
-      .then((data) => {
-        console.log("valid");
-        console.log(data);
-        this.setState({ error: "" });
-      })
-      .catch((err) => {
-        console.log("Invalid");
-        console.log(err);
-        const errors = {};
-        err.inner.forEach(({ message, params }) => {
-          errors[params.path] = message;
-        });
-        this.setState({ errors, error: "Check the fields above" });
-      });
-  };
-  handleSubmit = (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
-    const { email, password, rePassword, checked, error } = this.state;
-    this.validateFrom({ email, password, rePassword, checked });
+    setIsSubmitted(true);
+    console.log("submit the form ");
     if (!error) {
+      console.log("if is ok");
       axios
         .post("https://fake-api-ahmed.herokuapp.com/v1/auth/signup", {
           email,
           password,
         })
         .then((res) => {
+          console.log("then");
           const user = res.data;
           console.log(user);
-          // this.props.handleLogin()
+          let { value } = e.target;
+          value = state.userName;
+          dispatch({ type: "signup", payload: value });
+          history.push("/LogIn");
+
+          console.log("submit the form ");
         })
         .catch((err) => {
           console.log(err.response.data.error);
@@ -86,63 +105,72 @@ class Forms extends Component {
           if (error.includes("duplicate")) {
             error = "Email already exists";
           }
-          this.setState({ error });
+          setState({ error: error });
         });
     }
   };
 
-  render() {
-    const { email, password, rePassword, checked, errors, error } = this.state;
-    return (
-      <form className="contanier-form" onSubmit={this.handleSubmit}>
-        <Input
-          handleChange={this.handleChange}
-          name="email"
-          type="email"
-          placeholder="Enter Your Email"
-          value={email}
-          label="Email address"
-          id="Email"
-          error={errors.email}
-        />
-        <Input
-          handleChange={this.handleChange}
-          name="password"
-          type="password"
-          placeholder="Enter Your password"
-          value={password}
-          label="Create password"
-          id="password"
-          error={errors.password}
-        />
-        <Input
-          handleChange={this.handleChange}
-          name="rePassword"
-          type="password"
-          placeholder="Repeat password"
-          value={rePassword}
-          label="Repeat password"
-          id="rePassword"
-          error={errors.rePassword}
-        />
-        <Checkbox
-          handleChange={this.handleChange}
-          name="checked"
-          type="checkbox"
-          Text="I agree to terms & conditions"
-          error={errors.checked}
-          checked={checked}
-        />
-        {error && <span>{error}</span>}
-        <RegisterBtn className="register-btn-signup">Register</RegisterBtn>
+  return (
+    <form className="contanier-form" onSubmit={handleSubmit}>
+      <Input
+        handleChange={handleChange}
+        id="email"
+        name="email"
+        type="email"
+        placeholder="Enter Your Email"
+        value={email}
+        label="Email address"
+        error={errors.email}
+      />
+      <Input
+        handleChange={handleChange}
+        name="userName"
+        type="text"
+        placeholder="Enter Your Name"
+        value={userName}
+        label="User Name"
+        id="userName"
+        error={errors.userName}
+      />
+      <Input
+        handleChange={handleChange}
+        name="password"
+        type="password"
+        placeholder="Enter Your password"
+        value={password}
+        label="Create password"
+        id="password"
+        error={errors.password}
+      />
+      <Input
+        handleChange={handleChange}
+        name="rePassword"
+        type="password"
+        placeholder="Repeat password"
+        value={rePassword}
+        label="Repeat password"
+        id="rePassword"
+        error={errors.rePassword}
+      />
+      <Checkbox
+        handleChange={handleChange}
+        name="checked"
+        id="checked"
+        type="checkbox"
+        Text="I agree to terms & conditions"
+        error={errors.checked}
+        checked={checked}
+      />
+      <RegisterBtn type=" submit" className="register-btn-signup">
+        Register
+      </RegisterBtn>
 
-        <OR className="or" />
-        <Link to="/" className="link-page">
-          <LogInBtn className="login-btn-signup"> Log In</LogInBtn>
-        </Link>
-      </form>
-    );
-  }
+      <OR className="or" />
+      <Link to="/LogIn" className="link-page">
+        <LogInBtn className="login-btn-signup"> Log In</LogInBtn>
+      </Link>
+    </form>
+  );
 }
 
 export default Forms;

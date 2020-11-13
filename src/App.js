@@ -9,9 +9,6 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 const initState = {
   isLoggedIn: false,
   name: "",
-  username: "",
-  // email: "",
-  // password: "",
   errors: {},
 };
 
@@ -26,9 +23,17 @@ function loginReducer(state, action) {
         name: action.payload,
         error: "",
       };
+    case "signup":
+      window.localStorage.setItem("name", action.payload);
+      return {
+        isLoggedIn: true,
+        isLoading: false,
+        name: action.payload,
+        error: "",
+      };
     case "logout":
       window.localStorage.setItem("isLoggedIn", false);
-      window.localStorage.setItem("name", "...");
+      window.localStorage.setItem("name", "");
 
       return { isLoggedIn: false, name: "", error: "", isLoading: false };
     case "error":
@@ -46,18 +51,6 @@ export const LoginsContext = createContext({
 });
 function App() {
   const [state, dispatch] = useReducer(loginReducer, initState);
-  // useEffect(() => {
-  //   setTimeout(() => {
-  //     const isLoggedIn = window.localStorage.getItem("isLoggedIn");
-  //     const name = window.localStorage.getItem("name");
-
-  //     if (isLoggedIn) {
-  //       dispatch({ type: "login", payload: name });
-  //     } else {
-  //       dispatch({ type: "logout" });
-  //     }
-  //   }, 200);
-  // }, [dispatch]);
 
   return (
     <div className="App">

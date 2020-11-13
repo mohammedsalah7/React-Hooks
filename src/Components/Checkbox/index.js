@@ -2,7 +2,7 @@ import "./style.css";
 function Checkbox(props) {
   const { checked, handleChange, name, type, Text, error } = props;
   return (
-    <form className="checkbox">
+    <div className="checkbox">
       <input
         type={type}
         name={name}
@@ -12,7 +12,7 @@ function Checkbox(props) {
       />
       <label htmlFor={name}>{Text}</label>
       {error && <div className="lable-error">{error}</div>}
-    </form>
+    </div>
   );
 }
 export default Checkbox;

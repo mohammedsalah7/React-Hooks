@@ -1,9 +1,9 @@
 import "./style.css";
 
 export const RegisterBtn = (props) => {
-  const { children, className, handleClick } = props;
+  const { children, className, type } = props;
   return (
-    <button className={className} onClick={handleClick}>
+    <button className={className} type={type}>
       {children}
     </button>
   );

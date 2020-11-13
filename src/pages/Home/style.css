@@ -1,0 +1,30 @@
+
+.name{
+    position: relative;
+    margin-top: 60px;
+    left: 600px;
+    font-size: 32px;
+    
+}
+.title-home{
+    position: relative;
+    margin-top: 23px;
+    left: 300px;
+    font-size: 30px;
+    
+}
+.btn-logout{
+    position: absolute;
+    width: 128px;
+    height: 50px;
+    left: 1350px;
+    outline: none;
+    color: #000;
+    background: red;
+    border-radius: 6px;
+    margin-top: -110px;
+    font-family: "Inter";
+    border: none;
+    cursor: pointer;
+    font-size: 25px;
+}
