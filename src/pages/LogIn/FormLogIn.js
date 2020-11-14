@@ -32,7 +32,6 @@ export default function FormLogIn() {
   useEffect(() => {
     let mount = true;
     if (isSubmitted) {
-      console.log("object");
       schema
         .validate(state, { abortEarly: false })
         .then(() => {
@@ -68,16 +67,12 @@ export default function FormLogIn() {
     e.preventDefault();
     setIsSubmitted(true);
     if (!error) {
-      console.log("if is ok");
       axios
         .post("https://fake-api-ahmed.herokuapp.com/v1/auth/login", {
           email,
           password,
         })
         .then((res) => {
-          console.log("then");
-          const user = res.data;
-          console.log(user);
           history.push("/");
         })
         .catch((err) => {

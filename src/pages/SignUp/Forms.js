@@ -37,7 +37,6 @@ function Forms() {
   useEffect(() => {
     let mount = true;
     if (isSubmitted) {
-      console.log("object");
       schema
         .validate(state, { abortEarly: false })
         .then(() => {
@@ -80,27 +79,19 @@ function Forms() {
   const handleSubmit = (e) => {
     e.preventDefault();
     setIsSubmitted(true);
-    console.log("submit the form ");
     if (!error) {
-      console.log("if is ok");
       axios
         .post("https://fake-api-ahmed.herokuapp.com/v1/auth/signup", {
           email,
           password,
         })
         .then((res) => {
-          console.log("then");
-          const user = res.data;
-          console.log(user);
           let { value } = e.target;
           value = state.userName;
           dispatch({ type: "signup", payload: value });
           history.push("/LogIn");
-
-          console.log("submit the form ");
         })
         .catch((err) => {
-          console.log(err.response.data.error);
           let error = err.response.data.error;
           if (error.includes("duplicate")) {
             error = "Email already exists";
