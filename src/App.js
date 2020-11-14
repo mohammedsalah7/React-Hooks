@@ -2,6 +2,7 @@ import SingUp from "./pages/SignUp/index";
 import LogIn from "./pages/LogIn/index";
 import Home from "./pages/Home/index";
 import { useReducer, createContext } from "react";
+import PrevetRouter from "./Components/PreventRouter";
 
 import "./App.css";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
@@ -9,6 +10,7 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 const initState = {
   isLoggedIn: false,
   name: "",
+  isAuthenticated: false,
   errors: {},
 };
 
@@ -57,9 +59,9 @@ function App() {
       <Router>
         <Switch>
           <LoginsContext.Provider value={{ state, dispatch }}>
-            <Route exact path="/">
+            <PrevetRouter exact path="/">
               <Home />
-            </Route>
+            </PrevetRouter>
             <Route exact path="/login">
               <LogIn />
             </Route>
